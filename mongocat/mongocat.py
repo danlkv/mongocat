@@ -1,7 +1,9 @@
+"""Main module."""
+
 from pymongo import MongoClient
 import yaml
 import json
-"""Main module."""
+
 
 def get_parser(parser_name):
     if parser_name == 'yaml':
@@ -9,13 +11,14 @@ def get_parser(parser_name):
     if parser_name == 'json':
         return json.loads
 
+
 class MongoCat:
-    def __init__(self, 
+    def __init__(self,
                  database,
                  collection,
                  url,
                  parser='yaml'
-                ):
+                 ):
         self.database_name = database
         self.collection_name = collection
         self.url = url
@@ -27,7 +30,7 @@ class MongoCat:
 
     def writeln(self, line):
         obj = self.parser(line)
-        id  = self.collection.insert_one(obj).inserted_id
+        id = self.collection.insert_one(obj).inserted_id
         return id
 
     def iter_all(self):
