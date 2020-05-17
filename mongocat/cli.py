@@ -25,10 +25,10 @@ if __name__ == '__main__':
 @click.option('-W', '--write', is_flag=True)
 @click.option('-p', '--parser', type=click.Choice(['json', 'yaml']), default='yaml')
 @click.option('-u', '--url', help='MongoDB URI. format: mongodb://[username:password@]host1[:port1]...')
-@click.option('-d', '--database')
+@click.option('-d', '--database', help='Database name')
 @click.argument('collection')
 def cli(read, write, **options):
-    """Console script for mongocat."""
+    """Read/write to mongodb COLLECTION."""
     conn = MongoCat(**options)
 
     if write:
