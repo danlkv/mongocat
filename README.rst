@@ -30,6 +30,7 @@ Overview
 --------
 
 Write new documents into collection.
+
 .. code-block:: bash
 
     $ export MONGOCAT_URL='mongodb://<username>:<password>@your-mongo-host'
@@ -43,7 +44,7 @@ Read documents from a collection
 
 .. code-block:: bash
 
-    ~/s/mongocat [master]× » mongocat -R -d tensim graphs
+    $ mongocat -R -d tensim graphs
     {'_id': ObjectId('5ec0a27324ec53bd2464c074'), 'foo': 'bar'}
     {'_id': ObjectId('5ec0a27a24ec53bd2464c075'), 'foo': 'baz'}
 
@@ -53,7 +54,7 @@ Usage
 
 .. code-block:: bash
 
-    ~/s/mongocat [master]× » mongocat --help
+    $ mongocat --help
     Usage: mongocat [OPTIONS] COLLECTION
 
       Read/write to mongodb COLLECTION.
@@ -75,7 +76,7 @@ Dump running processes to db
 
 .. code-block:: bash
 
-	$ ps | jc --ps | jq -cM '.[]' | mongocat -WR -d tensim processes                                                                 22:26:16
+	$ ps | jc --ps | jq -cM '.[]' | mongocat -WR -d tensim processes
 	5ec0aeef4814de15eb742155
 	5ec0aeef4814de15eb742156
 	5ec0aeef4814de15eb742157
@@ -112,9 +113,9 @@ Tools used:
 TODO
 ----
 
-	- [ ] Option to suppress print of added document
-	- [ ] Finding command that filters documents aka mongo grep
-	- [ ] Deleting documens using ids from stdin. Delete some: ``mongocat --find 'blah' | mongocat --delete``
+- [ ] Option to suppress print of added document
+- [ ] Finding command that filters documents aka mongo grep
+- [ ] Deleting documens using ids from stdin. Delete some: ``mongocat --find 'blah' | mongocat --delete``
 
 Credits
 -------
