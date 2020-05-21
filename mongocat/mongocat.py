@@ -29,8 +29,11 @@ class MongoCat:
         self.collection = self.database[self.collection_name]
 
     def writeln(self, line):
-        obj = self.parser(line)
-        id = self.collection.insert_one(obj).inserted_id
+        object = self.parser(line)
+        self.put(object)
+
+    def put(self, object):
+        id = self.collection.insert_one(object).inserted_id
         return id
 
     def iter_all(self):
