@@ -31,6 +31,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
     ],
+
     description="Cli tool to interact with mongodb",
     entry_points={
         'console_scripts': [
