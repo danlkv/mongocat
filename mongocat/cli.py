@@ -15,6 +15,7 @@ from mongocat import MongoCat
                     'format: mongodb://[username:password@]host1[:port1]...')
               )
 @click.option('-d', '--database', help='Database name')
+@click.option('-f', '--update_on_exists', default=True, is_flag=True)
 @click.argument('collection')
 def cli(read, write, **options):
     """Read/write to mongodb COLLECTION."""
@@ -23,7 +24,10 @@ def cli(read, write, **options):
     if write:
         for line in sys.stdin:
             id = conn.writeln(line)
-            print(id)
+            if id is None:
+                print(f'E: Nothing inserted for `{line}`', file=sys.stderr)
+            else:
+                print(id)
 
     if read:
         for obj in conn.iter_all():
