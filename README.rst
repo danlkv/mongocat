@@ -48,6 +48,13 @@ Read documents from a collection
     {'_id': ObjectId('5ec0a27324ec53bd2464c074'), 'foo': 'bar'}
     {'_id': ObjectId('5ec0a27a24ec53bd2464c075'), 'foo': 'baz'}
 
+Find documents in a collection
+
+.. code-block:: bash
+
+    $ mongocat -F -d tensim graphs --query '{"foo":{"$eq":"bar"}}'
+    {'_id': ObjectId('5ec0a27324ec53bd2464c074'), 'foo': 'bar'}
+
 
 Usage
 -----
