@@ -11,6 +11,7 @@ from mongocat import MongoCat
 @click.option('-R', '--read', is_flag=True)
 @click.option('-W', '--write', is_flag=True)
 @click.option('-F', '--find', is_flag=True)
+@click.option('-q', '--query', help='Query for find' )
 @click.option('-p', '--parser', type=click.Choice(['json', 'yaml', 'bson']),
               default='yaml')
 @click.option('-u', '--url',
@@ -40,8 +41,8 @@ def cli(read, write, find, **options):
             print_(obj)
 
     if find:
-        query = json.loads(options.query)
-        for obj in conn.iter_all(query):
+        query = json.loads(options['query'])
+        for obj in conn.iter_query(query):
             print_(obj)
 
     return 0

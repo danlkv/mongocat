@@ -24,6 +24,7 @@ class MongoCat:
                  url,
                  parser='yaml'
                  ,update_on_exists=True
+                 ,**kw
                  ):
         self.database_name = database
         self.collection_name = collection
