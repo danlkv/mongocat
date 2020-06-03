@@ -1,6 +1,8 @@
 """Console script for mongocat."""
 import sys
 import click
+import json
+from bson import json_util
 
 from mongocat import MongoCat
 
@@ -8,7 +10,8 @@ from mongocat import MongoCat
 @click.command()
 @click.option('-R', '--read', is_flag=True)
 @click.option('-W', '--write', is_flag=True)
-@click.option('-p', '--parser', type=click.Choice(['json', 'yaml']),
+@click.option('-F', '--find', is_flag=True)
+@click.option('-p', '--parser', type=click.Choice(['json', 'yaml', 'bson']),
               default='yaml')
 @click.option('-u', '--url',
               help=('MongoDB URI.'
@@ -17,7 +20,7 @@ from mongocat import MongoCat
 @click.option('-d', '--database', help='Database name')
 @click.option('-f', '--update_on_exists', default=True, is_flag=True)
 @click.argument('collection')
-def cli(read, write, **options):
+def cli(read, write, find, **options):
     """Read/write to mongodb COLLECTION."""
     conn = MongoCat(**options)
 
@@ -29,9 +32,17 @@ def cli(read, write, **options):
             else:
                 print(id)
 
+    def print_(obj):
+        print(json_util.dumps(obj))#, default=json_util.default))
+
     if read:
         for obj in conn.iter_all():
-            print(obj)
+            print_(obj)
+
+    if find:
+        query = json.loads(options.query)
+        for obj in conn.iter_all(query):
+            print_(obj)
 
     return 0
 

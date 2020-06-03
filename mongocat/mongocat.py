@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 import yaml
 import json
+from bson import json_util as bson_ser
 import sys
 
 
@@ -12,6 +13,8 @@ def get_parser(parser_name):
         return yaml.safe_load
     if parser_name == 'json':
         return json.loads
+    if parser_name == 'bson':
+        return bson_ser.loads
 
 
 class MongoCat:
@@ -58,6 +61,10 @@ class MongoCat:
             else:
                 raise
         return id
+
+    def iter_query(self, query):
+        for obj in self.collection.find(query):
+            yield obj
 
     def iter_all(self):
         for obj in self.collection.find():
